@@ -1,0 +1,63 @@
+{
+	"defaultSeverity": "error",
+	"extends": [
+		"tslint:recommended"
+	],
+	"jsRules": {},
+	"rules": {
+		"no-async-without-await": true,
+		"no-empty": true,
+		"triple-equals": true,
+		"eofline": true,
+		"import-spacing": true,
+		"typeof-compare": true,
+		"indent": {
+			"options": [
+				"spaces"
+			]
+		},
+		"member-ordering": [
+			true,
+			{
+				"order": [
+					"static-field",
+					"instance-field",
+					"static-method",
+					"instance-method"
+				]
+			}
+		],
+        "quotemark": [true, "single"],
+        "space-before-function-paren": {
+            "options": {
+                "anonymous": "never",
+                "asyncArrow": "always",
+                "constructor": "never",
+                "method": "never",
+                "named": "never"
+            }
+        },
+        "variable-name": {
+            "options": [
+                "ban-keywords",
+                "check-format",
+                "require-const-for-all-caps",
+                "allow-leading-underscore"
+            ]
+        },
+        "whitespace": {
+            "options": [
+                "check-branch",
+                "check-decl",
+                "check-operator",
+                "check-separator",
+                "check-type",
+                "check-typecast"
+            ]
+        },
+        "component-class-suffix": true,
+        "arrow-return-shorthand": false,
+        "curly": false
+    },
+	"rulesDirectory": []
+}
