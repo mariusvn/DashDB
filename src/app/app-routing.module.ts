@@ -14,7 +14,8 @@ const routes: Routes = [
         redirectTo: 'board'
     },
     {
-        path: '**',
+        path: '',
+        pathMatch: 'full',
         redirectTo: 'board'
     }
 ];

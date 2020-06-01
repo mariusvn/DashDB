@@ -1,10 +1,12 @@
 <div>
   <nb-layout>
-    <nb-layout-header fixed><span class="company-name">{{companyName}}</span></nb-layout-header>
+    <nb-layout-header fixed><span class="company-name" routerLink="/board/home">{{companyName}}</span></nb-layout-header>
     <nb-sidebar>
       <nb-menu [items]="pages">
       </nb-menu>
     </nb-sidebar>
-    <nb-layout-column></nb-layout-column>
+    <nb-layout-column>
+      <router-outlet name="sub"></router-outlet>
+    </nb-layout-column>
   </nb-layout>
 </div>

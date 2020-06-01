@@ -11,7 +11,7 @@ import {DatabaseService} from '../../services/database.service';
 })
 export class LayoutComponent {
   public companyName: string = '';
-  public pages: {title: string}[] = [];
+  public pages: {title: string, link?: string}[] = [];
 
   constructor(private societyService: SocietyService, private pageService: PageService, private databaseService: DatabaseService) {
     this.societyService.getSocietyData().subscribe(data => {
@@ -19,7 +19,7 @@ export class LayoutComponent {
     });
     this.pageService.getPages().subscribe(data => {
       data.forEach(page => {
-        this.pages.push({title: page.name});
+        this.pages.push({title: page.name, link: '/board/' + page.slug});
       })
     });
   }
