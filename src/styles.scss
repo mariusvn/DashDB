@@ -6,3 +6,19 @@
   @include nb-theme-global();
 };
 /* You can add global styles to this file, and also import other style files */
+
+.nb-theme-dark table tr td, .nb-theme-dark table tr th {
+  position: relative;
+  padding: .875rem 1.25rem;
+  border: 1px solid #151a30;
+  vertical-align: middle;
+
+}
+
+.nb-theme-dark table {
+  border-collapse: collapse;
+}
+
+.nb-theme-dark tbody tr:nth-child(2n) {
+  background-color: #192038;
+}
