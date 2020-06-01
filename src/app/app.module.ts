@@ -10,8 +10,7 @@ import {environment} from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbThemeModule, NbLayoutModule, NbSidebarModule, NbMenuModule} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import {SocietyService} from './services/society.service';
-import {ServicesModule} from './services/services.module';
+import {DatabaseService} from './services/database.service';
 
 @NgModule({
     declarations: [
@@ -29,8 +28,7 @@ import {ServicesModule} from './services/services.module';
         NbLayoutModule,
         NbMenuModule.forRoot(),
         NbEvaIconsModule,
-        NbSidebarModule.forRoot(),
-        ServicesModule
+        NbSidebarModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

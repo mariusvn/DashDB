@@ -7,6 +7,7 @@
 	"rules": {
 		"no-async-without-await": true,
 		"no-empty": true,
+		"no-console": false,
 		"triple-equals": true,
 		"eofline": true,
 		"import-spacing": true,

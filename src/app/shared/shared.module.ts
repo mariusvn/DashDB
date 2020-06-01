@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {NbButtonModule, NbLayoutModule, NbSidebarModule} from '@nebular/theme';
+import {ServicesModule} from '../services/services.module';
 
 
 
@@ -10,12 +11,14 @@ import {NbButtonModule, NbLayoutModule, NbSidebarModule} from '@nebular/theme';
     CommonModule,
     NbLayoutModule,
     NbSidebarModule,
-    NbButtonModule
+    NbButtonModule,
+    ServicesModule
   ],
   exports: [
     NbLayoutModule,
     NbSidebarModule,
-    NbButtonModule
+    NbButtonModule,
+    ServicesModule
   ]
 })
 export class SharedModule { }

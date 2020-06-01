@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, DocumentSnapshot} from '@angular/fire/firestore';
 import SocietyData from '../../models/society-data.model';
 import {Observable} from 'rxjs';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocietyService {
+  private secondaryFirebase: firebase.app.App = undefined;
 
   constructor(private fs: AngularFirestore) {}
 
@@ -17,5 +19,7 @@ export class SocietyService {
       });
     });
   }
+
+
 
 }
