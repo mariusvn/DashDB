@@ -22,3 +22,7 @@
 .nb-theme-dark tbody tr:nth-child(2n) {
   background-color: #192038;
 }
+
+div:focus {
+  outline: none !important;
+}

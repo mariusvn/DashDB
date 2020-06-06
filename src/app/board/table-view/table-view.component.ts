@@ -6,6 +6,8 @@ import {PageService} from '../../services/page.service';
 import {DatabaseService} from '../../services/database.service';
 import * as firebase from 'firebase';
 import 'firebase/database';
+import {NbWindowService} from '@nebular/theme';
+import {EditDialogComponent} from '../dialogs/edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'dash-table-view',
@@ -20,7 +22,8 @@ export class TableViewComponent {
 
   constructor(private router: ActivatedRoute,
               private pageService: PageService,
-              private databaseService: DatabaseService) {
+              private databaseService: DatabaseService,
+              private windowService: NbWindowService) {
     router.paramMap.subscribe((params: ParamMap) => {
       this.rows = [];
       this.pageId = params.get('boardId');
@@ -33,6 +36,22 @@ export class TableViewComponent {
         }, this);
       });
     });
+  }
+
+  public openEditDialog(index: number) {
+    this.windowService.open(EditDialogComponent, {title: 'Edit ' + this.rows[this.page.main][index], context: {
+        model: this.page.model,
+        row: this.getRowContent(index)
+      }
+    });
+  }
+
+  private getRowContent(index: number) {
+    const res = [];
+    for (let i = 0; i < this.page.model.length; i++) {
+      res.push(this.rows[i][index]);
+    }
+    return res;
   }
 
   /**
@@ -49,10 +68,8 @@ export class TableViewComponent {
 
   private getRowData = (rowData: DataModel, index: number): Promise<void> => {
     return new Promise((resolve, reject) => {
-      console.log({rowData, index})
       try {
         if (rowData.keysAreProperties) {
-          console.log('key as property')
           this.db.ref(rowData.path).on('value', (data) => {
             this.rows[index] = Object.keys(data.val());
             resolve();
@@ -62,19 +79,13 @@ export class TableViewComponent {
             console.warn('Main must be keys as properties');
             return resolve();
           }
-          console.log('not key as property')
           const newPath = rowData.path;
-          console.log(newPath);
           this.rows[index] = [];
           this.rows[this.page.main].forEach((id, i) => {
             const path = rowData.path.replace(/:([a-zA-Z]*?)(\/|$|\n)/gm, '' + id + '$2');
-            console.log(path);
             this.db.ref(path).on('value', (data) => {
-              console.log(index, i);
               this.rows[index][i] = data.val();
-              console.log(`set position of ${index}, ${i} to ${data.val()}`);
               if (this.rows[this.page.main].length - 1 === i) {
-                console.log(this.rows);
                 resolve();
               }
             })

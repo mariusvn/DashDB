@@ -8,7 +8,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NbThemeModule, NbLayoutModule, NbSidebarModule, NbMenuModule} from '@nebular/theme';
+import {NbThemeModule, NbLayoutModule, NbSidebarModule, NbMenuModule, NbWindowModule} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {DatabaseService} from './services/database.service';
 
@@ -28,7 +28,8 @@ import {DatabaseService} from './services/database.service';
         NbLayoutModule,
         NbMenuModule.forRoot(),
         NbEvaIconsModule,
-        NbSidebarModule.forRoot()
+        NbSidebarModule.forRoot(),
+        NbWindowModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

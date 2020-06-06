@@ -1,0 +1,24 @@
+.edit-dialog {
+  min-width: 600px;
+  text-align: right;
+  label {
+    display: inline-block;
+    position: inherit;
+    float: left;
+    line-height: 40px;
+  }
+  button {
+    margin-left: 15px;
+  }
+  textarea {
+    resize: vertical;
+    width: 100%;
+    min-width: 100%;
+    margin-bottom: 15px;
+  }
+  input {
+    width: 50%;
+    margin-bottom: 15px;
+  }
+
+}

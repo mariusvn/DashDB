@@ -13,7 +13,7 @@
         <tbody>
           <tr *ngFor="let _row of rows[page.main]; let idx = index">
             <td *ngFor="let cell of rows; let i = index">{{cell[idx]}}</td>
-            <td><button nbButton>Edit</button></td>
+            <td><button nbButton (click)="openEditDialog(idx)">Edit</button></td>
           </tr>
         </tbody>
       </table>

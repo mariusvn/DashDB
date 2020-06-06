@@ -1,0 +1,23 @@
+<div class="edit-dialog">
+  <div *ngFor="let row of context.model; let idx = index">
+    <label>{{row.name + ' :'}}</label>
+    <ng-container [ngSwitch]="row.type">
+      <ng-container *ngSwitchCase="'string'">
+        <input nbInput value="{{context.row[idx]}}" type="text"/>
+      </ng-container>
+      <ng-container *ngSwitchCase="'number'">
+        <input nbInput value="{{context.row[idx]}}" type="number"/>
+      </ng-container>
+      <ng-container *ngSwitchCase="'text'">
+        <textarea nbInput value="{{context.row[idx]}}"></textarea>
+      </ng-container>
+      <ng-container *ngSwitchCase="'boolean'">
+        <nb-toggle checked="{{context.row[idx]}}"></nb-toggle>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div>
+    <button nbButton outline status="danger">Cancel</button>
+    <button nbButton status="primary">Apply</button>
+  </div>
+</div>
