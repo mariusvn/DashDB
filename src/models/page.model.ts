@@ -4,6 +4,8 @@ export interface DataModel {
     path: string;
     type: 'boolean' | 'number' | 'string';
     keysAreProperties?: boolean;
+    constant?: boolean;
+    description?: string;
 }
 
 export default interface Page {

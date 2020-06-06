@@ -3,16 +3,16 @@
     <label>{{row.name + ' :'}}</label>
     <ng-container [ngSwitch]="row.type">
       <ng-container *ngSwitchCase="'string'">
-        <input nbInput value="{{context.row[idx]}}" type="text"/>
+        <input nbInput [attr.disabled]="row.constant && row.constant === true" value="{{context.row[idx]}}" type="text"/>
       </ng-container>
       <ng-container *ngSwitchCase="'number'">
-        <input nbInput value="{{context.row[idx]}}" type="number"/>
+        <input nbInput [attr.disabled]="row.constant && row.constant === true" value="{{context.row[idx]}}" type="number"/>
       </ng-container>
       <ng-container *ngSwitchCase="'text'">
-        <textarea nbInput value="{{context.row[idx]}}"></textarea>
+        <textarea nbInput [attr.disabled]="row.constant && row.constant === true" value="{{context.row[idx]}}"></textarea>
       </ng-container>
       <ng-container *ngSwitchCase="'boolean'">
-        <nb-toggle checked="{{context.row[idx]}}"></nb-toggle>
+        <nb-toggle [attr.disabled]="row.constant && row.constant === true" checked="{{context.row[idx]}}"></nb-toggle>
       </ng-container>
     </ng-container>
   </div>
