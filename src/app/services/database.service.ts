@@ -11,6 +11,8 @@ import {SocietyService} from './society.service';
  */
 export class DatabaseService {
   private secondaryFirebase: firebase.app.App = undefined;
+  private funcBuffer: ({func: () => void, inst: any})[] = [];
+  private initialized: boolean = false;
 
   constructor(private societyService: SocietyService) {
     this.initSecondaryFirebaseConnection().then(() => console.info('Connected to secondary firebase'));
@@ -24,6 +26,11 @@ export class DatabaseService {
       }
       const sub = this.societyService.getSocietyData().subscribe((value) => {
         this.secondaryFirebase = firebase.initializeApp(value.firebaseAccess, 'secondary');
+        this.initialized = true;
+        this.funcBuffer.forEach(d => {
+          d.func = d.func.bind(d.inst);
+          d.func();
+        });
         sub.unsubscribe();
         resolve(this.secondaryFirebase);
       })
@@ -35,5 +42,14 @@ export class DatabaseService {
       console.warn('Secondary firebase connection is not initialized');
     }
     return this.secondaryFirebase;
+  }
+
+  public onDatabaseConnected(callback: () => void, instance: any): void {
+    if (this.initialized) {
+      callback = callback.bind(instance);
+      callback();
+    } else {
+      this.funcBuffer.push({func: callback, inst: instance});
+    }
   }
 }
