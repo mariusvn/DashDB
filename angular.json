@@ -111,9 +111,7 @@
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "externalDependencies": [
-              "@firebase/firestore",
-              "ws",
-              "xhr2"
+              "@firebase/firestore"
             ]
           },
           "configurations": {

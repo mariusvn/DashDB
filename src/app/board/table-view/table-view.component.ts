@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, PLATFORM_ID} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnDestroy, PLATFORM_ID} from '@angular/core';
 import Page, {DataModel} from '../../../models/page.model';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {take} from 'rxjs/operators';
@@ -17,18 +17,39 @@ import {isPlatformBrowser} from '@angular/common';
 })
 export class TableViewComponent implements OnDestroy {
 
+  public pageId: string = undefined;
+  public page: Page = undefined;
+  public rows: any[][] = [];
+  public isBrowser: boolean;
+  public namespace: any;
+  private namespaceListener: any;
+  private namespaceRef: firebase.database.Reference;
+  private readonly cdrRefreshedInterval: number;
+  private db: firebase.database.Database;
+
   constructor(private router: ActivatedRoute,
               private pageService: PageService,
               private databaseService: DatabaseService,
               private windowService: NbWindowService,
               private toastrService: NbToastrService,
+              private cdr: ChangeDetectorRef,
               @Inject(PLATFORM_ID) platformId: any) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.cdr.detach();
+    if (this.isBrowser)
+    {
+      // @ts-ignore
+      this.cdrRefreshedInterval = setInterval(() => {
+              this.cdr.detectChanges();
+          }, 1000) as number;
+    }
     router.paramMap.subscribe((params: ParamMap) => {
       this.rows = [];
       this.pageId = params.get('boardId');
       this.pageService.getPage(this.pageId).pipe(take(1)).subscribe(page => {
         this.page = page
+        if (!this.isBrowser)
+          return;
         this.databaseService.onDatabaseConnected(() => {
           this.db = databaseService.getSecondaryFirebase().database();
           this.namespaceRef = this.db.ref(this.page.namespace);
@@ -41,14 +62,6 @@ export class TableViewComponent implements OnDestroy {
       });
     });
   }
-  public pageId: string = undefined;
-  public page: Page = undefined;
-  public rows: any[][] = [];
-  public isBrowser: boolean;
-  public namespace: any;
-  private namespaceListener: any;
-  private namespaceRef: firebase.database.Reference;
-  private db: firebase.database.Database;
 
   private static getPath(path: string, id: string): string {
     return path.replace(/:([a-zA-Z]*?)(\/|$|\n)/gm, '' + id + '$2');
@@ -56,8 +69,10 @@ export class TableViewComponent implements OnDestroy {
 
   ngOnDestroy() {
     if (this.namespaceRef && this.namespaceListener) {
-      this.namespaceRef.off(this.namespaceListener);
+      this.namespaceRef.off('value', this.namespaceListener);
     }
+    if (this.cdrRefreshedInterval)
+      clearInterval(this.cdrRefreshedInterval);
   }
 
   public openEditDialog(index: number) {
@@ -88,6 +103,7 @@ export class TableViewComponent implements OnDestroy {
       promises.push(this.getRowData(this.page.model[index], index));
     }
     await Promise.all(promises);
+    this.cdr.detectChanges();
   }
 
   private getRowData = (rowData: DataModel, index: number): Promise<void> => {

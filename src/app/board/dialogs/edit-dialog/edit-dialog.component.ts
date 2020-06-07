@@ -12,7 +12,6 @@ export class EditDialogComponent {
   context: {model: DataModel[], row: string[]} = {model: [], row: []};
 
   constructor(protected windowRef: NbWindowRef) {
-    console.log(windowRef.config.context);
     this.context = windowRef.config.context as {model: DataModel[], row: string[]};
   }
 

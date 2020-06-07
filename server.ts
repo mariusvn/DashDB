@@ -62,4 +62,24 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 // tslint:disable-next-line:no-var-requires
 (global as any).XMLHttpRequest = require('xhr2');
 
+// tslint:disable-next-line:no-var-requires
+const domino = require('domino');
+// tslint:disable-next-line:no-var-requires
+const fs = require('fs');
+// tslint:disable-next-line:no-var-requires
+const path = require('path');
+const templateA = fs
+  .readFileSync(path.join('dist/DashDB/browser', 'index.html'))
+  .toString();
+const win = domino.createWindow(templateA);
+win.Object = Object;
+win.Math = Math;
+
+global.window = win;
+global.document = win.document;
+// tslint:disable-next-line
+global['branch'] = null;
+// tslint:disable-next-line
+global['object'] = win.object;
+
 export * from './src/main.server';

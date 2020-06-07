@@ -1,5 +1,5 @@
 <div>
-  <nb-card>
+  <nb-card *ngIf="isBrowser">
     <nb-card-body>
       <table *ngIf="page && rows[0] && rows[0].length > 0">
         <thead>

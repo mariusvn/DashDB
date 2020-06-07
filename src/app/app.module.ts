@@ -14,10 +14,11 @@ import {
     NbSidebarModule,
     NbMenuModule,
     NbWindowModule,
-    NbToastrModule
+    NbToastrModule, NbToggleModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {DatabaseService} from './services/database.service';
+import {SSRExcludeModule} from 'ngx-ssr-exclude';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import {DatabaseService} from './services/database.service';
         NbSidebarModule.forRoot(),
         NbWindowModule.forRoot(),
         NbToastrModule.forRoot(),
+        SSRExcludeModule
     ],
     providers: [],
     bootstrap: [AppComponent]

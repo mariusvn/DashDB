@@ -15,7 +15,8 @@ export class DatabaseService {
   private initialized: boolean = false;
 
   constructor(private societyService: SocietyService) {
-    this.initSecondaryFirebaseConnection().then(() => console.info('Connected to secondary firebase'));
+    if (firebase.apps.length < 2)
+      this.initSecondaryFirebaseConnection().then(() => console.info('Connected to secondary firebase'));
   }
 
   public initSecondaryFirebaseConnection(): Promise<firebase.app.App> {

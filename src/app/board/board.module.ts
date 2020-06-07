@@ -8,6 +8,7 @@ import {NbCardModule, NbInputModule, NbMenuModule, NbToggleModule, NbWindowModul
 import {TableViewComponent} from './table-view/table-view.component';
 import {HomeViewComponent} from './home-view/home-view.component';
 import {EditDialogComponent} from './dialogs/edit-dialog/edit-dialog.component';
+import {SSRExcludeModule} from 'ngx-ssr-exclude';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {EditDialogComponent} from './dialogs/edit-dialog/edit-dialog.component';
     NbCardModule,
     NbWindowModule.forChild(),
     NbInputModule,
-    NbToggleModule
+    NbToggleModule,
+    SSRExcludeModule
   ]
 })
 export class BoardModule { }
