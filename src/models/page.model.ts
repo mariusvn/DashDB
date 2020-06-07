@@ -13,4 +13,5 @@ export default interface Page {
     model: DataModel[];
     slug: string;
     main: number;
+    namespace: string;
 }

@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, OnDestroy, PLATFORM_ID} from '@angular/core';
 import Page, {DataModel} from '../../../models/page.model';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {take} from 'rxjs/operators';
@@ -6,7 +6,7 @@ import {PageService} from '../../services/page.service';
 import {DatabaseService} from '../../services/database.service';
 import * as firebase from 'firebase';
 import 'firebase/database';
-import {NbWindowService} from '@nebular/theme';
+import {NbToastrService, NbWindowService} from '@nebular/theme';
 import {EditDialogComponent} from '../dialogs/edit-dialog/edit-dialog.component';
 import {isPlatformBrowser} from '@angular/common';
 
@@ -15,17 +15,13 @@ import {isPlatformBrowser} from '@angular/common';
   templateUrl: './table-view.component.html',
   styleUrls: ['./table-view.component.scss']
 })
-export class TableViewComponent {
-  public pageId: string = undefined;
-  public page: Page = undefined;
-  public rows: any[][] = [];
-  public isBrowser: boolean;
-  private db: firebase.database.Database;
+export class TableViewComponent implements OnDestroy {
 
   constructor(private router: ActivatedRoute,
               private pageService: PageService,
               private databaseService: DatabaseService,
               private windowService: NbWindowService,
+              private toastrService: NbToastrService,
               @Inject(PLATFORM_ID) platformId: any) {
     this.isBrowser = isPlatformBrowser(platformId);
     router.paramMap.subscribe((params: ParamMap) => {
@@ -33,15 +29,35 @@ export class TableViewComponent {
       this.pageId = params.get('boardId');
       this.pageService.getPage(this.pageId).pipe(take(1)).subscribe(page => {
         this.page = page
-        if (!this.isBrowser)
-          return;
-
         this.databaseService.onDatabaseConnected(() => {
           this.db = databaseService.getSecondaryFirebase().database();
-          this.getRowsData.bind(this)();
+          this.namespaceRef = this.db.ref(this.page.namespace);
+          this.namespaceListener = this.namespaceRef.on('value', (data) => {
+            this.namespace = data.val();
+            this.rows = [];
+            this.getRowsData.bind(this)();
+          });
         }, this);
       });
     });
+  }
+  public pageId: string = undefined;
+  public page: Page = undefined;
+  public rows: any[][] = [];
+  public isBrowser: boolean;
+  public namespace: any;
+  private namespaceListener: any;
+  private namespaceRef: firebase.database.Reference;
+  private db: firebase.database.Database;
+
+  private static getPath(path: string, id: string): string {
+    return path.replace(/:([a-zA-Z]*?)(\/|$|\n)/gm, '' + id + '$2');
+  }
+
+  ngOnDestroy() {
+    if (this.namespaceRef && this.namespaceListener) {
+      this.namespaceRef.off(this.namespaceListener);
+    }
   }
 
   public openEditDialog(index: number) {
@@ -64,55 +80,54 @@ export class TableViewComponent {
    * Fetch the rows data from database
    */
   private async getRowsData() {
-    if (!this.isBrowser)
-      return;
     await this.getRowData(this.page.model[this.page.main], this.page.main);
+    const promises = [];
     for (let index = 0; index < this.page.model.length; index++) {
       if (index === this.page.main)
         continue;
-      await this.getRowData(this.page.model[index], index);
+      promises.push(this.getRowData(this.page.model[index], index));
     }
+    await Promise.all(promises);
   }
 
   private getRowData = (rowData: DataModel, index: number): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      try {
-        if (rowData.keysAreProperties) {
-          this.db.ref(rowData.path).once('value', (data) => {
-            this.rows[index] = Object.keys(data.val());
-            resolve();
-          });
-        } else {
-          if (this.page.main === index) {
-            console.warn('Main must be keys as properties');
-            return resolve();
-          }
-          const newPath = rowData.path;
-          this.rows[index] = [];
-          this.rows[this.page.main].forEach((id, i) => {
-            const path = rowData.path.replace(/:([a-zA-Z]*?)(\/|$|\n)/gm, '' + id + '$2');
-            this.db.ref(path).once('value', (data) => {
-              this.rows[index][i] = data.val();
-              if (this.rows[this.page.main].length - 1 === i) {
-                resolve();
-              }
-            })
-          });
+    return new Promise((resolve) => {
+      if (this.page.main === index) {
+        const path = rowData.path;
+        const data = this.getPathContent(path);
+        this.rows[index] = Object.keys(data);
+      } else {
+        this.rows[index] = [];
+        for (let i = 0; i < this.rows[this.page.main].length; i++) {
+          const path = TableViewComponent.getPath(rowData.path, this.getCurrentMain(i));
+          this.rows[index][i] = this.getPathContent(path);
         }
-      } catch (e) {
-        console.warn(e);
-        if (!this.rows[this.page.main]) {
-          console.warn('Main row not loaded');
-        } else
-          this.rows[this.page.main].forEach((_o, i) => {
-            this.rows[index][i] = -4;
-          });
-        reject();
       }
+      resolve();
     });
   }
 
+
   private getCurrentMain(index: number) {
     return this.rows[this.page.main][index];
+  }
+
+  private getPathContent(path: string): any {
+    path = path.trim();
+    if (path[0] === '/')
+      path = path.slice(1);
+    const words: string[] = path.split('/')
+    if (words.length === 0 || words.length === 1)
+      return this.namespace;
+    let data = this.namespace;
+    try {
+      for (const word of words) {
+        data = data[word];
+      }
+    } catch (e) {
+      console.warn('Invalid path');
+      return;
+    }
+    return data;
   }
 }
