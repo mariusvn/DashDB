@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Inject, PLATFORM_ID} from '@angular/core';
 import Page, {DataModel} from '../../../models/page.model';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {take} from 'rxjs/operators';
@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 import 'firebase/database';
 import {NbWindowService} from '@nebular/theme';
 import {EditDialogComponent} from '../dialogs/edit-dialog/edit-dialog.component';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'dash-table-view',
@@ -18,17 +19,22 @@ export class TableViewComponent {
   public pageId: string = undefined;
   public page: Page = undefined;
   public rows: any[][] = [];
+  public isBrowser: boolean;
   private db: firebase.database.Database;
 
   constructor(private router: ActivatedRoute,
               private pageService: PageService,
               private databaseService: DatabaseService,
-              private windowService: NbWindowService) {
+              private windowService: NbWindowService,
+              @Inject(PLATFORM_ID) platformId: any) {
+    this.isBrowser = isPlatformBrowser(platformId);
     router.paramMap.subscribe((params: ParamMap) => {
       this.rows = [];
       this.pageId = params.get('boardId');
       this.pageService.getPage(this.pageId).pipe(take(1)).subscribe(page => {
         this.page = page
+        if (!this.isBrowser)
+          return;
 
         this.databaseService.onDatabaseConnected(() => {
           this.db = databaseService.getSecondaryFirebase().database();
@@ -58,6 +64,8 @@ export class TableViewComponent {
    * Fetch the rows data from database
    */
   private async getRowsData() {
+    if (!this.isBrowser)
+      return;
     await this.getRowData(this.page.model[this.page.main], this.page.main);
     for (let index = 0; index < this.page.model.length; index++) {
       if (index === this.page.main)
@@ -70,7 +78,7 @@ export class TableViewComponent {
     return new Promise((resolve, reject) => {
       try {
         if (rowData.keysAreProperties) {
-          this.db.ref(rowData.path).on('value', (data) => {
+          this.db.ref(rowData.path).once('value', (data) => {
             this.rows[index] = Object.keys(data.val());
             resolve();
           });
@@ -83,7 +91,7 @@ export class TableViewComponent {
           this.rows[index] = [];
           this.rows[this.page.main].forEach((id, i) => {
             const path = rowData.path.replace(/:([a-zA-Z]*?)(\/|$|\n)/gm, '' + id + '$2');
-            this.db.ref(path).on('value', (data) => {
+            this.db.ref(path).once('value', (data) => {
               this.rows[index][i] = data.val();
               if (this.rows[this.page.main].length - 1 === i) {
                 resolve();

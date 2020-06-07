@@ -7,7 +7,11 @@
     "build": "npx ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev:ssr": "ng run DashDB:serve-ssr",
+    "serve:ssr": "node dist/DashDB/server/main.js",
+    "build:ssr": "ng build --prod && ng run DashDB:server:production",
+    "prerender": "ng run DashDB:prerender"
   },
   "private": true,
   "dependencies": {
@@ -20,10 +24,13 @@
     "@angular/forms": "~9.1.9",
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
+    "@angular/platform-server": "~9.1.9",
     "@angular/router": "~9.1.9",
     "@nebular/eva-icons": "5.0.0",
     "@nebular/theme": "^5.0.0",
+    "@nguniversal/express-engine": "^9.1.1",
     "eva-icons": "^1.1.2",
+    "express": "^4.15.2",
     "firebase": "^7.14.6",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
@@ -33,10 +40,16 @@
     "@angular-devkit/build-angular": "~0.901.7",
     "@angular/cli": "~9.1.7",
     "@angular/compiler-cli": "~9.1.9",
+    "@nguniversal/builders": "^9.1.1",
     "@schematics/angular": "~9.1.7",
+    "@types/express": "^4.17.0",
     "@types/node": "^12.11.1",
+    "bufferutil": "^4.0.1",
     "ts-node": "~8.3.0",
     "tslint": "^6.1.2",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "utf-8-validate": "^5.0.2",
+    "ws": "^7.3.0",
+    "xhr2": "^0.2.0"
   }
 }
