@@ -16,13 +16,13 @@ import {SSRExcludeModule} from 'ngx-ssr-exclude';
   imports: [
     CommonModule,
     BoardRoutingModule,
-    SharedModule,
     NbMenuModule,
     NbCardModule,
     NbWindowModule.forChild(),
     NbInputModule,
     NbToggleModule,
-    SSRExcludeModule
+    SSRExcludeModule,
+    SharedModule
   ]
 })
 export class BoardModule { }

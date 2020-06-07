@@ -1,0 +1,21 @@
+<nb-layout>
+  <nb-layout-column>
+    <div class="form">
+      <div class="presentation">
+        <span class="title">DashDB</span>
+        <span class="description">Firebase Realtime Database Manager</span>
+      </div>
+      <div class="login">
+        <form [formGroup]="loginForm" class="classic">
+          <label *ngIf="loginForm.controls.email; let field">
+            <input formControlName="email" [status]="field.touched && field.invalid  ? 'danger' : 'basic'" autocomplete="user-email" name="email" nbInput type="email" placeholder="E-mail"/>
+          </label>
+          <label *ngIf="loginForm.controls.password; let field">
+            <input formControlName="password" [status]="field.touched && field.invalid  ? 'danger' : 'basic'" autocomplete="user-password" name="password" nbInput type="password" placeholder="Password"/>
+          </label>
+          <button nbButton [disabled]="loginForm.invalid || loading" (click)="onSubmit()" type="submit" class="login-btn">Log in</button>
+        </form>
+      </div>
+    </div>
+  </nb-layout-column>
+</nb-layout>

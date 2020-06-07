@@ -1,6 +1,14 @@
 <div>
   <nb-layout>
-    <nb-layout-header fixed><span class="company-name" routerLink="/board/home">{{companyName}}</span></nb-layout-header>
+    <nb-layout-header fixed>
+      <div class="left">
+        <span class="company-name" routerLink="/board/home">{{companyName}}</span>
+      </div>
+      <div class="right">
+        <span class="user-name">{{userName}}</span>
+        <button (click)="disconnect()" nbButton>Disconnect</button>
+      </div>
+    </nb-layout-header>
     <nb-sidebar>
       <nb-menu [items]="pages">
       </nb-menu>

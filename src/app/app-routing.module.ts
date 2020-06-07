@@ -1,20 +1,23 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {AuthGuardService} from './services/guards/auth-guard.service';
+import {AngularFireAuthGuard, loggedIn} from '@angular/fire/auth-guard';
 
 
 const routes: Routes = [
     {
         path: 'board',
-        loadChildren: () => import('./board/board.module').then(m => m.BoardModule)
+        loadChildren: () => import('./board/board.module').then(m => m.BoardModule),
+        canActivate: [AuthGuardService],
+
     },
     {
         path: 'auth',
-        // TODO add auth
-        // loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-        redirectTo: 'board'
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+        canActivate: [AuthGuardService],
     },
     {
-        path: '',
+        path: '**',
         pathMatch: 'full',
         redirectTo: 'board'
     }

@@ -1,0 +1,49 @@
+
+nb-layout-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .form {
+    display: flex;
+    flex-direction: row;
+    .presentation {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      border-right: solid 1px #fff;
+      padding-right: 15px;
+      span {
+        display: inline-block;
+      }
+      .title {
+        font-weight: bolder;
+        font-size: 80px;
+        line-height: 80px;
+        margin-left: -5px;
+      }
+      .description {
+        font-weight: lighter;
+        font-size: 20px;
+      }
+    }
+
+    .login {
+      padding-left: 15px;
+      display: flex;
+      flex-direction: column;
+      input {
+        margin-bottom: 10px;
+      }
+      .classic {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        .login-btn {
+          width: 40%;
+        }
+      }
+    }
+  }
+}

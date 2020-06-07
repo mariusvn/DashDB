@@ -14,11 +14,12 @@ import {
     NbSidebarModule,
     NbMenuModule,
     NbWindowModule,
-    NbToastrModule, NbToggleModule
+    NbToastrModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import {DatabaseService} from './services/database.service';
 import {SSRExcludeModule} from 'ngx-ssr-exclude';
+import {AuthGuardService} from './services/guards/auth-guard.service';
+import {AuthService} from './services/auth.service';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,7 @@ import {SSRExcludeModule} from 'ngx-ssr-exclude';
         NbToastrModule.forRoot(),
         SSRExcludeModule
     ],
-    providers: [],
+    providers: [AuthService, AuthGuardService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
