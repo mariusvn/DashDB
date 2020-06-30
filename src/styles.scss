@@ -26,3 +26,11 @@
 div:focus {
   outline: none !important;
 }
+
+.no-padding-window nb-card-body {
+  padding: 0;
+}
+
+a:focus {
+  outline: none !important;
+}

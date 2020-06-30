@@ -13,13 +13,14 @@ export class SocietyService {
   constructor(private fs: AngularFirestore) {}
 
   public getSocietyData(): Observable<SocietyData> {
-    return new Observable(observer => {
-      this.fs.collection('society-data').doc('data').get().subscribe((value: DocumentSnapshot<SocietyData>) => {
-        observer.next(value.data());
-      });
-    });
+    return this.fs.collection('society-data').doc('data').valueChanges() as Observable<SocietyData>;
   }
 
+  public setFirebaseAccess(obj): Promise<void> {
+    return this.fs.collection('society-data').doc('data').update({firebaseAccess: obj})
+  }
 
-
+  public setCompanyName(name): Promise<void> {
+    return this.fs.collection('society-data').doc('data').update({name});
+  }
 }

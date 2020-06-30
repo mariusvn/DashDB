@@ -8,7 +8,7 @@ import {
   NbCardModule,
   NbInputModule,
   NbMenuModule,
-  NbSpinnerModule,
+  NbSpinnerModule, NbTabsetModule,
   NbToggleModule,
   NbWindowModule
 } from '@nebular/theme';
@@ -17,11 +17,10 @@ import {HomeViewComponent} from './home-view/home-view.component';
 import {EditDialogComponent} from './dialogs/edit-dialog/edit-dialog.component';
 import {SSRExcludeModule} from 'ngx-ssr-exclude';
 import {AdminDialogComponent} from './dialogs/admin-dialog/admin-dialog.component';
-import {SensitiveInfoComponent} from './dialogs/admin-dialog/sensitive-info.component';
 
 
 @NgModule({
-  declarations: [LayoutComponent, TableViewComponent, HomeViewComponent, EditDialogComponent, AdminDialogComponent, SensitiveInfoComponent],
+  declarations: [LayoutComponent, TableViewComponent, HomeViewComponent, EditDialogComponent, AdminDialogComponent],
   imports: [
     CommonModule,
     BoardRoutingModule,
@@ -32,7 +31,8 @@ import {SensitiveInfoComponent} from './dialogs/admin-dialog/sensitive-info.comp
     NbToggleModule,
     SSRExcludeModule,
     SharedModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbTabsetModule
   ]
 })
 export class BoardModule { }

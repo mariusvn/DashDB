@@ -59,6 +59,6 @@ export class LayoutComponent implements OnDestroy {
   }
 
   openAdminDialog(): void {
-    this.windowService.open(AdminDialogComponent, {title: 'Admin panel'})
+    this.windowService.open(AdminDialogComponent, {title: 'Admin panel', windowClass: 'no-padding-window'})
   }
 }

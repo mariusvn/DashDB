@@ -1,0 +1,16 @@
+<form class="company-form" [nbSpinner]="companyName === undefined || firebaseData === undefined">
+  <div class="input-wrapper">
+    <label for="company-form-name">Company name:</label>
+    <input nbInput #companyFormName id="company-form-name" value="{{companyName}}" type="text" name="name" />
+  </div>
+  <div class="input-wrapper">
+    <label for="company-form-firebase-data">Firebase connection:</label>
+    <dash-sensitive-info>
+      <textarea #companyFormFirebaseData id="company-form-firebase-data" name="firebase-data" nbInput>{{firebaseData}}</textarea>
+    </dash-sensitive-info>
+  </div>
+</form>
+<div class="menu-actions">
+  <label *ngIf="error !== undefined && error !== ''" class="error">{{error}}</label>
+  <button (click)="validate()" nbButton status="primary">Continue</button>
+</div>

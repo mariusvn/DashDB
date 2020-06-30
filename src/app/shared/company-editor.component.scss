@@ -1,0 +1,39 @@
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+  input, textarea {
+    width: 70%;
+    max-width: inherit !important;
+  }
+  dash-sensitive-info {
+    width: 70%;
+    textarea {
+      width: 100%;
+    }
+  }
+  textarea {
+    resize: vertical;
+    min-height: 260px;
+  }
+  label {
+    width: 30%;
+  }
+}
+hr {
+  width: 100%;
+  border-color: #151a30;
+  border-bottom-width: 1px;
+  border-top-width: 0;
+}
+.menu-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+.error {
+  color: red;
+  padding-right: 20px;
+}
