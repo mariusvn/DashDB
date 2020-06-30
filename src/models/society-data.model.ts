@@ -10,5 +10,6 @@ export default interface SocietyData {
         messagingSenderId: string,
         appId: string,
         measurementId: string
-    }
+    },
+    admins: string[];
 }

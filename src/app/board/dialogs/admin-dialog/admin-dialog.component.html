@@ -1,0 +1,13 @@
+<div class="dialog-wrapper">
+  <form class="company-form" [nbSpinner]="companyName === undefined || firebaseData === undefined">
+    <div class="input-wrapper">
+      <label for="company-form-name">Company name:</label>
+      <input nbInput id="company-form-name" value="{{companyName}}" type="text" name="name" />
+    </div>
+    <div class="input-wrapper">
+      <label for="company-form-firebase-data">Firebase connection:</label>
+      <textarea id="company-form-firebase-data" name="firebase-data" nbInput>{{firebaseData}}</textarea>
+    </div>
+  </form>
+  <hr/>
+</div>

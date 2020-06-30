@@ -1,0 +1,29 @@
+
+.dialog-wrapper {
+  min-width: 800px;
+  display: flex;
+  flex-direction: column;
+  .input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    input, textarea {
+      width: 70%;
+      max-width: inherit;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 200px;
+    }
+    label {
+      width: 30%;
+    }
+  }
+  hr {
+    width: 100%;
+    border-color: #151a30;
+    border-bottom-width: 1px;
+    border-top-width: 0;
+  }
+}

@@ -6,6 +6,7 @@
       </div>
       <div class="right">
         <span class="user-name">{{userName}}</span>
+        <button (click)="openAdminDialog()" nbButton *ngIf="isAdmin">Admin</button>
         <button (click)="disconnect()" nbButton>Disconnect</button>
       </div>
     </nb-layout-header>
