@@ -13,12 +13,22 @@
               <label for="page-form-{{idx}}-namespace">Namespace:</label>
               <input nbInput id="page-form-{{idx}}-namespace" type="text" value="{{page.namespace}}"/><br/>
             </div>
+            <div class="input-line top">
+              <label for="page-form-{{idx}}-slug">Slug:</label>
+              <input nbInput id="page-form-{{idx}}-slug" type="text" value="{{page.slug}}"/><br/>
+            </div>
+            <div class="input-line top">
+              <label nbTooltip="Generally an id" for="page-form-{{idx}}-main">Main field:</label>
+              <nb-select id="page-form-{{idx}}-main" selected="{{page.main}}" (selectedChange)="setMain(idx, $event)">
+                <nb-option value="{{i}}" *ngFor="let field of page.model; let i = index">{{field.name}}</nb-option>
+              </nb-select>
+            </div>
             <div class="input-line">
               <label>Inputs</label>
-              <button nbButton>Add Input</button>
+              <button nbButton (click)="addField(idx)">Add Input</button>
             </div>
             <div class="page-inputs">
-              <div class="page-input-item" *ngFor="let field of page.model">
+              <div class="page-input-item" *ngFor="let field of page.model; let fieldIdx = index">
                 <div class="input-line">
                   <input nbTooltip="Field name" type="text" placeholder="Name" value="{{field.name}}" nbInput/>
                   <nb-select nbTooltip="Field type" placeholder="Type" selected="{{field.type}}" id="page-form-{{idx}}-type">
@@ -37,7 +47,7 @@
                   </nb-checkbox>
                   <input
                     type="text"
-                    nbTooltip="Field path"
+                    nbTooltip="Field path (use :[A-Za-z] to use main. ex: data/:user/name"
                     *ngIf="!field.keysAreProperties"
                     value="{{field.path}}"
                     nbInput
@@ -45,7 +55,7 @@
                   />
                 </div>
                 <div class="input-line">
-                  <button nbButton status="danger">Delete</button>
+                  <button nbButton status="danger" (click)="deleteField(idx, fieldIdx)">Delete</button>
                 </div>
               </div>
             </div>
@@ -55,6 +65,6 @@
     </nb-accordion>
   </div>
   <div class="footer">
-    <button nbButton>Add page</button>
+    <button nbButton (click)="addPage()">Add page</button>
   </div>
 </div>

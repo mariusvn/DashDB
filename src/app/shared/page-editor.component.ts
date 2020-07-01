@@ -18,7 +18,23 @@ export class PageEditorComponent implements OnInit {
       .pipe(take(1))
       .subscribe(pages => {
       this.pages = pages;
-      console.log(pages);
     });
+  }
+
+  deleteField(pageIndex, fieldIdx) {
+    this.pages[pageIndex].model.splice(fieldIdx, 1);
+  }
+
+  addField(pageIndex) {
+    this.pages[pageIndex].model.push({name: '', path: '', type: ''});
+  }
+
+  setMain(pageIndex, mainStr) {
+    const nbr = parseInt(mainStr, 10);
+    this.pages[pageIndex].main = nbr;
+  }
+
+  addPage() {
+    console.log(this.pages);
   }
 }
