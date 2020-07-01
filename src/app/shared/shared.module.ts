@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NbButtonModule, NbInputModule, NbLayoutModule, NbSidebarModule, NbSpinnerModule} from '@nebular/theme';
+import {
+  NbAccordionModule,
+  NbButtonModule, NbCardModule, NbCheckboxModule,
+  NbInputModule,
+  NbLayoutModule, NbSelectModule,
+  NbSidebarModule,
+  NbSpinnerModule, NbTooltipModule
+} from '@nebular/theme';
 import {ServicesModule} from '../services/services.module';
 import {PageEditorComponent} from './page-editor.component';
 import {CompanyEditorComponent} from './company-editor.component';
@@ -18,7 +25,12 @@ import {SensitiveInfoComponent} from './sensitive-info.component';
     NbButtonModule,
     ServicesModule,
     NbSpinnerModule,
-    NbInputModule
+    NbInputModule,
+    NbAccordionModule,
+    NbSelectModule,
+    NbCardModule,
+    NbCheckboxModule,
+    NbTooltipModule
   ],
   exports: [
     NbLayoutModule,

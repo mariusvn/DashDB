@@ -1,1 +1,60 @@
-<div>hello</div>
+<div [nbSpinner]="pages === undefined" class="container">
+  <div *ngIf="pages !== undefined" class="accordion-wrapper">
+    <nb-accordion>
+      <nb-accordion-item *ngFor="let page of pages; let idx = index">
+        <nb-accordion-item-header>{{page.name}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div>
+            <div class="input-line top">
+              <label for="page-form-{{idx}}-name">Page name:</label>
+              <input nbInput id="page-form-{{idx}}-name" type="text" value="{{page.name}}"/><br/>
+            </div>
+            <div class="input-line top">
+              <label for="page-form-{{idx}}-namespace">Namespace:</label>
+              <input nbInput id="page-form-{{idx}}-namespace" type="text" value="{{page.namespace}}"/><br/>
+            </div>
+            <div class="input-line">
+              <label>Inputs</label>
+              <button nbButton>Add Input</button>
+            </div>
+            <div class="page-inputs">
+              <div class="page-input-item" *ngFor="let field of page.model">
+                <div class="input-line">
+                  <input nbTooltip="Field name" type="text" placeholder="Name" value="{{field.name}}" nbInput/>
+                  <nb-select nbTooltip="Field type" placeholder="Type" selected="{{field.type}}" id="page-form-{{idx}}-type">
+                    <nb-option value="string">String</nb-option>
+                    <nb-option value="text">Long text</nb-option>
+                    <nb-option value="number">Number</nb-option>
+                  </nb-select>
+                </div>
+                <div class="input-line path-input-line">
+                  <nb-checkbox
+                    nbTooltip="Use the name of the document instead of a value"
+                    [checked]="field.keysAreProperties"
+                    (checkedChange)="field.keysAreProperties = $event"
+                  >
+                    Use document ID
+                  </nb-checkbox>
+                  <input
+                    type="text"
+                    nbTooltip="Field path"
+                    *ngIf="!field.keysAreProperties"
+                    value="{{field.path}}"
+                    nbInput
+                    placeholder="Path"
+                  />
+                </div>
+                <div class="input-line">
+                  <button nbButton status="danger">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+  <div class="footer">
+    <button nbButton>Add page</button>
+  </div>
+</div>
