@@ -38,3 +38,17 @@ a:focus {
 .no-padding {
   padding: 0 !important;
 }
+
+::-webkit-scrollbar {
+  width: 7px;
+  margin-right: 5px;
+}
+
+::-webkit-scrollbar-track {
+
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #171d2f;
+}
