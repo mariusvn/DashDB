@@ -7,15 +7,15 @@
           <div>
             <div class="input-line top">
               <label for="page-form-{{idx}}-name">Page name:</label>
-              <input nbInput id="page-form-{{idx}}-name" type="text" value="{{page.name}}"/><br/>
+              <input nbInput id="page-form-{{idx}}-name" type="text" [(ngModel)]="page.name"/><br/>
             </div>
             <div class="input-line top">
               <label for="page-form-{{idx}}-namespace">Namespace:</label>
-              <input nbInput id="page-form-{{idx}}-namespace" type="text" value="{{page.namespace}}"/><br/>
+              <input nbInput id="page-form-{{idx}}-namespace" type="text" [(ngModel)]="page.namespace"/><br/>
             </div>
             <div class="input-line top">
-              <label for="page-form-{{idx}}-slug">Slug:</label>
-              <input nbInput id="page-form-{{idx}}-slug" type="text" value="{{page.slug}}"/><br/>
+              <label for="page-form-{{idx}}-slug">Page URL:</label>
+              <input nbInput id="page-form-{{idx}}-slug" type="text" [(ngModel)]="page.slug"/><br/>
             </div>
             <div class="input-line top">
               <label nbTooltip="Generally an id" for="page-form-{{idx}}-main">Main field:</label>
@@ -30,7 +30,7 @@
             <div class="page-inputs">
               <div class="page-input-item" *ngFor="let field of page.model; let fieldIdx = index">
                 <div class="input-line">
-                  <input nbTooltip="Field name" type="text" placeholder="Name" value="{{field.name}}" nbInput/>
+                  <input nbTooltip="Field name" type="text" placeholder="Name" [(ngModel)]="page.model[fieldIdx].name" nbInput/>
                   <nb-select nbTooltip="Field type" placeholder="Type" selected="{{field.type}}" id="page-form-{{idx}}-type">
                     <nb-option value="string">String</nb-option>
                     <nb-option value="text">Long text</nb-option>
@@ -49,7 +49,7 @@
                     type="text"
                     nbTooltip="Field path (use :[A-Za-z] to use main. ex: data/:user/name"
                     *ngIf="!field.keysAreProperties"
-                    value="{{field.path}}"
+                    [(ngModel)]="field.path"
                     nbInput
                     placeholder="Path"
                   />
@@ -66,5 +66,7 @@
   </div>
   <div class="footer">
     <button nbButton (click)="addPage()">Add page</button>
+    <label class="error">{{error}}</label>
+    <button nbButton status="primary" (click)="save()">Save</button>
   </div>
 </div>

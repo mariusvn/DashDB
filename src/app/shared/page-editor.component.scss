@@ -37,10 +37,15 @@
   }
   .footer {
     padding: 10px 15px 15px;
+    display: flex;
+    justify-content: space-between;
   }
   .accordion-wrapper {
     max-height: 700px !important;
     overflow-y: auto;
     padding-bottom: 25px;
+  }
+  .error {
+    color: red;
   }
 }

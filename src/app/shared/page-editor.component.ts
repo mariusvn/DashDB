@@ -9,7 +9,8 @@ import {take} from 'rxjs/operators';
 })
 export class PageEditorComponent implements OnInit {
 
-  pages = undefined;
+  public pages = undefined;
+  public error = undefined;
 
   constructor(private pageService: PageService) {}
 
@@ -36,5 +37,30 @@ export class PageEditorComponent implements OnInit {
 
   addPage() {
     console.log(this.pages);
+    this.pages.push({
+      main: 0,
+      model: [{
+        constant: true,
+        keysAreProperties: false,
+        name: '',
+        path: '',
+        type: ''
+      }],
+      name: '',
+      namespace: '',
+      position: this.pages.length,
+      slug: ''
+    });
+  }
+
+  save() {
+    const ret = this.pageService.checkPagesModel(this.pages);
+    console.log(ret);
+    if (ret.success) {
+      this.error = undefined;
+    } else {
+      this.error = ret.reason;
+    }
+    this.pageService.setPages(this.pages);
   }
 }

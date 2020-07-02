@@ -13,6 +13,7 @@ import {PageEditorComponent} from './page-editor.component';
 import {CompanyEditorComponent} from './company-editor.component';
 import {UsersEditorComponent} from './users-editor.component';
 import {SensitiveInfoComponent} from './sensitive-info.component';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -30,7 +31,8 @@ import {SensitiveInfoComponent} from './sensitive-info.component';
     NbSelectModule,
     NbCardModule,
     NbCheckboxModule,
-    NbTooltipModule
+    NbTooltipModule,
+    FormsModule
   ],
   exports: [
     NbLayoutModule,
