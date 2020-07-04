@@ -4,7 +4,7 @@ import {
   NbAccordionModule,
   NbButtonModule, NbCardModule, NbCheckboxModule,
   NbInputModule,
-  NbLayoutModule, NbSelectModule,
+  NbLayoutModule, NbListModule, NbSelectModule,
   NbSidebarModule,
   NbSpinnerModule, NbTooltipModule
 } from '@nebular/theme';
@@ -14,11 +14,12 @@ import {CompanyEditorComponent} from './company-editor.component';
 import {UsersEditorComponent} from './users-editor.component';
 import {SensitiveInfoComponent} from './sensitive-info.component';
 import {FormsModule} from '@angular/forms';
+import { CreateUserComponent } from './create-user.component';
 
 
 
 @NgModule({
-  declarations: [PageEditorComponent, CompanyEditorComponent, UsersEditorComponent, SensitiveInfoComponent],
+  declarations: [PageEditorComponent, CompanyEditorComponent, UsersEditorComponent, SensitiveInfoComponent, CreateUserComponent],
   imports: [
     CommonModule,
     NbLayoutModule,
@@ -32,7 +33,8 @@ import {FormsModule} from '@angular/forms';
     NbCardModule,
     NbCheckboxModule,
     NbTooltipModule,
-    FormsModule
+    FormsModule,
+    NbListModule
   ],
   exports: [
     NbLayoutModule,

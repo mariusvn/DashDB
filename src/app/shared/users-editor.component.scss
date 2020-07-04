@@ -1,0 +1,25 @@
+.user-edit {
+  .user-item {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    .field-line {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 40px;
+      input {
+        width: 70%;
+      }
+    }
+  }
+  .bottom-menu {
+    padding: 10px 15px 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

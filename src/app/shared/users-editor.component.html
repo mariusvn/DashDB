@@ -1,1 +1,25 @@
-<div></div>
+<div class="user-edit" [nbSpinner]="!users">
+  <div>
+    <nb-list>
+      <nb-list-item *ngFor="let user of users; let uidx = index" [nbSpinner]="loading.includes(uidx)">
+        <div class="user-item">
+          <div class="field-line">
+            <label for="form-{{uidx}}-email" class="field">e-mail:</label>
+            <input id="form-{{uidx}}-email" type="text" [value]="user.email" disabled nbInput/>
+          </div>
+          <div class="field-line">
+            <label for="form-{{uidx}}-uid" class="field">ID:</label>
+            <input id="form-{{uidx}}-uid" type="text" [value]="user.uid" disabled nbInput/>
+          </div>
+          <div class="field-line">
+            <nb-checkbox class="field" [checked]="user.admin" (checkedChange)="setAdmin(user, uidx)">admin</nb-checkbox>
+            <button nbButton status="danger" (click)="deleteUser(user, uidx)">Delete</button>
+          </div>
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </div>
+  <div class="bottom-menu">
+    <button nbButton (click)="openCreateUserDialog()">Add user</button>
+  </div>
+</div>

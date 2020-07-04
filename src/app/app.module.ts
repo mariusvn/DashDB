@@ -20,6 +20,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {SSRExcludeModule} from 'ngx-ssr-exclude';
 import {AuthGuardService} from './services/guards/auth-guard.service';
 import {AuthService} from './services/auth.service';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,7 @@ import {AuthService} from './services/auth.service';
         NbToastrModule.forRoot(),
         SSRExcludeModule
     ],
-    providers: [AuthService, AuthGuardService],
+    providers: [AuthService, AuthGuardService, { provide: REGION, useValue: 'europe-west1' }],
     bootstrap: [AppComponent]
 })
 export class AppModule {
