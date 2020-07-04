@@ -21,6 +21,7 @@ import {SSRExcludeModule} from 'ngx-ssr-exclude';
 import {AuthGuardService} from './services/guards/auth-guard.service';
 import {AuthService} from './services/auth.service';
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
+import {DatabaseService} from './services/database.service';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,7 @@ import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
         NbToastrModule.forRoot(),
         SSRExcludeModule
     ],
-    providers: [AuthService, AuthGuardService, { provide: REGION, useValue: 'europe-west1' }],
+    providers: [AuthService, AuthGuardService, { provide: REGION, useValue: 'europe-west1' }, DatabaseService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

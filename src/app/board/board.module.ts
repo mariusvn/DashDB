@@ -17,6 +17,7 @@ import {HomeViewComponent} from './home-view/home-view.component';
 import {EditDialogComponent} from './dialogs/edit-dialog/edit-dialog.component';
 import {SSRExcludeModule} from 'ngx-ssr-exclude';
 import {AdminDialogComponent} from './dialogs/admin-dialog/admin-dialog.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {AdminDialogComponent} from './dialogs/admin-dialog/admin-dialog.componen
     SSRExcludeModule,
     SharedModule,
     NbSpinnerModule,
-    NbTabsetModule
+    NbTabsetModule,
+    FormsModule
   ]
 })
 export class BoardModule { }

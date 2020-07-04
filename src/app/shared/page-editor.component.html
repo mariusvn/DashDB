@@ -1,4 +1,4 @@
-<div [nbSpinner]="pages === undefined" class="container">
+<div [nbSpinner]="pages === undefined || loading" class="container">
   <div *ngIf="pages !== undefined" class="accordion-wrapper">
     <nb-accordion>
       <nb-accordion-item *ngFor="let page of pages; let idx = index">
@@ -31,7 +31,7 @@
               <div class="page-input-item" *ngFor="let field of page.model; let fieldIdx = index">
                 <div class="input-line">
                   <input nbTooltip="Field name" type="text" placeholder="Name" [(ngModel)]="page.model[fieldIdx].name" nbInput/>
-                  <nb-select nbTooltip="Field type" placeholder="Type" selected="{{field.type}}" id="page-form-{{idx}}-type">
+                  <nb-select nbTooltip="Field type" placeholder="Type" [(selected)]="field.type" id="page-form-{{idx}}-type">
                     <nb-option value="string">String</nb-option>
                     <nb-option value="text">Long text</nb-option>
                     <nb-option value="number">Number</nb-option>

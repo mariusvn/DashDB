@@ -10,7 +10,7 @@ import {AuthGuardService} from './guards/auth-guard.service';
 
 @NgModule({
   imports: [CommonModule],
-  providers: [PageService, SocietyService, DatabaseService]
+  providers: [PageService, SocietyService]
 })
 export class ServicesModule { }
 

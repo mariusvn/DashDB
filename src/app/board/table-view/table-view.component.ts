@@ -78,7 +78,9 @@ export class TableViewComponent implements OnDestroy {
   public openEditDialog(index: number) {
     this.windowService.open(EditDialogComponent, {title: 'Edit ' + this.rows[this.page.main][index], context: {
         model: this.page.model,
-        row: this.getRowContent(index)
+        row: this.getRowContent(index),
+        namespace: this.page.namespace,
+        main: this.page.main,
       }
     });
   }
