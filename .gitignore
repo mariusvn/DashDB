@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 
 start.sh
+*.log

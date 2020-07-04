@@ -5,13 +5,12 @@ import 'firebase/auth';
 import {Observable} from 'rxjs';
 import UserCredential = firebase.auth.UserCredential;
 import {Router} from '@angular/router';
+import * as admin from 'firebase-admin';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: Observable<firebase.User>;
-  private localUser: firebase.User;
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
     this.user = this.firebaseAuth.authState;
@@ -23,6 +22,10 @@ export class AuthService {
       }
     });
   }
+
+  static isAdminEnabled: boolean = false;
+  user: Observable<firebase.User>;
+  private localUser: firebase.User;
 
   isLoggedIn(): boolean {
     const usr = this.localUser;
@@ -46,5 +49,12 @@ export class AuthService {
       .signOut().then(() => {
         this.router.navigate(['auth', 'login']);
       })
+  }
+
+  initAdmin(): void {
+    if (AuthService.isAdminEnabled) {
+      return;
+    }
+
   }
 }
