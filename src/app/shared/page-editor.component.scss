@@ -48,4 +48,41 @@
   .error {
     color: red;
   }
+
+  nb-accordion-item-header {
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    padding-left: 5px;
+    .icon-container {
+      font-size: 30px;
+      border: 1px solid #2a3357;
+      border-radius: 5px;
+      margin: 0 10px;
+      padding: 10px;
+      &.disabled {
+        background-color: #272c43 !important;
+        color: #5b5e66;
+        cursor: default;
+        &:active {
+          nb-icon {
+            transform: none !important;
+          }
+        }
+      }
+      &:hover {
+        background-color: #2a3357;
+      }
+      nb-icon {
+        vertical-align: middle;
+      }
+      &:active {
+        nb-icon {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
 }

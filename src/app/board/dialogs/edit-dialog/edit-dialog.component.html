@@ -3,21 +3,21 @@
     <label>{{row.name + ' :'}}</label>
     <ng-container [ngSwitch]="row.type">
       <ng-container *ngSwitchCase="'string'">
-        <input nbInput [attr.disabled]="row.constant && row.constant === true" [(ngModel)]="context.row[idx]" type="text"/>
+        <input nbInput [disabled]="context.type !== 'create' && row.constant && row.constant === true" [(ngModel)]="context.row[idx]" type="text"/>
       </ng-container>
       <ng-container *ngSwitchCase="'number'">
-        <input nbInput [attr.disabled]="row.constant && row.constant === true" [(ngModel)]="context.row[idx]" type="number"/>
+        <input nbInput [disabled]="context.type !== 'create' && row.constant && row.constant === true" [(ngModel)]="context.row[idx]" type="number"/>
       </ng-container>
       <ng-container *ngSwitchCase="'text'">
-        <textarea nbInput [attr.disabled]="row.constant && row.constant === true" [(ngModel)]="context.row[idx]"></textarea>
+        <textarea nbInput [disabled]="context.type !== 'create' && row.constant && row.constant === true" [(ngModel)]="context.row[idx]"></textarea>
       </ng-container>
       <ng-container *ngSwitchCase="'boolean'">
-        <nb-toggle [attr.disabled]="row.constant && row.constant === true" [(ngModel)]="context.row[idx]"></nb-toggle>
+        <nb-toggle [disabled]="context.type !== 'create' && row.constant && row.constant === true" [(ngModel)]="context.row[idx]"></nb-toggle>
       </ng-container>
     </ng-container>
   </div>
   <div>
     <button nbButton outline status="danger" (click)="close()">Cancel</button>
-    <button nbButton status="primary" (click)="close()">Apply</button>
+    <button nbButton status="primary" (click)="close(true)">Save</button>
   </div>
 </div>

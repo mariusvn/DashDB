@@ -2,7 +2,15 @@
   <div *ngIf="pages !== undefined" class="accordion-wrapper">
     <nb-accordion>
       <nb-accordion-item *ngFor="let page of pages; let idx = index">
-        <nb-accordion-item-header>{{page.name}}</nb-accordion-item-header>
+        <nb-accordion-item-header>
+          <div class="icon-container" [ngClass]="{disabled: idx === 0}" (click)="movePage($event, idx, 'up')">
+            <nb-icon icon="arrow-ios-upward-outline"></nb-icon>
+          </div>
+          <div class="icon-container" [ngClass]="{disabled: idx === pages.length - 1}" (click)="movePage($event, idx, 'down')">
+            <nb-icon icon="arrow-ios-downward-outline"></nb-icon>
+          </div>
+          {{page.name}}
+        </nb-accordion-item-header>
         <nb-accordion-item-body>
           <div>
             <div class="input-line top">

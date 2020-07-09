@@ -1,4 +1,26 @@
-table {
-  width: 100%;
-  box-sizing: border-box;
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 10px;
+    .title {
+      font-weight: bold;
+      font-size: 27px;
+    }
+  }
+  table {
+    width: 100%;
+    box-sizing: border-box;
+    td, th {
+      text-align: center;
+    }
+    overflow-x: auto;
+  }
 }

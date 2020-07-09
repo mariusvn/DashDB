@@ -49,7 +49,6 @@ exports.getAllUsers = functions.runWith({
   const society = buf[1];
   const userArray = [];
 
-  console.log(users);
   const admins = society.data().admins;
 
   for (let i = 0; i < users.users.length; i++) {

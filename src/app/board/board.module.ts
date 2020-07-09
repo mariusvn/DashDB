@@ -18,10 +18,18 @@ import {EditDialogComponent} from './dialogs/edit-dialog/edit-dialog.component';
 import {SSRExcludeModule} from 'ngx-ssr-exclude';
 import {AdminDialogComponent} from './dialogs/admin-dialog/admin-dialog.component';
 import {FormsModule} from '@angular/forms';
+import {ConfirmDialogComponent} from './dialogs/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
-  declarations: [LayoutComponent, TableViewComponent, HomeViewComponent, EditDialogComponent, AdminDialogComponent],
+  declarations: [
+    LayoutComponent,
+    TableViewComponent,
+    HomeViewComponent,
+    EditDialogComponent,
+    AdminDialogComponent,
+    ConfirmDialogComponent
+  ],
   imports: [
     CommonModule,
     BoardRoutingModule,

@@ -50,7 +50,6 @@ export class PageService {
   }
 
   public checkPagesModel(doc: Page[]): { success: boolean, reason: string | undefined } {
-    console.log(doc);
     if (!Array.isArray(doc)) {
       return {success: false, reason: 'Main object should be an array.'};
     }

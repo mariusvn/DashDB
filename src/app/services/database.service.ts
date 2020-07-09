@@ -25,11 +25,9 @@ export class DatabaseService {
         console.warn('Secondary firebase connection is already initialized');
         return reject('Secondary firebase connection is already initialized');
       }
-      console.log('check b');
       const sub = this.societyService.getSocietyData().subscribe((value) => {
         this.secondaryFirebase = firebase.initializeApp(value.firebaseAccess, 'secondary');
         this.initialized = true;
-        console.log('check a');
         this.funcBuffer.forEach(d => {
           d.func = d.func.bind(d.inst);
           d.func();
@@ -48,7 +46,6 @@ export class DatabaseService {
   }
 
   public onDatabaseConnected(callback: () => void, instance: any): void {
-    console.log({initialized: this.initialized});
     if (this.initialized) {
       callback = callback.bind(instance);
       callback();

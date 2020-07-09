@@ -9,6 +9,7 @@ import 'firebase/database';
 import {NbToastrService, NbWindowService} from '@nebular/theme';
 import {EditDialogComponent} from '../dialogs/edit-dialog/edit-dialog.component';
 import {isPlatformBrowser} from '@angular/common';
+import {ConfirmDialogComponent} from '../dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'dash-table-view',
@@ -81,6 +82,18 @@ export class TableViewComponent implements OnDestroy {
         row: this.getRowContent(index),
         namespace: this.page.namespace,
         main: this.page.main,
+        type: 'edit'
+      }
+    });
+  }
+
+  public openCreateDialog(): void {
+    this.windowService.open(EditDialogComponent, {
+      title: 'Create ' + this.page.name.toLowerCase(), context: {
+        model: this.page.model,
+        namespace: this.page.namespace,
+        main: this.page.main,
+        type: 'create'
       }
     });
   }
@@ -125,6 +138,29 @@ export class TableViewComponent implements OnDestroy {
     });
   }
 
+  /**
+   * Delete the main
+   */
+  deleteItem(index: number): Promise<void> {
+    return new Promise<void>(resolve => {
+      const path = '/' + this.page.namespace + '/' +
+        this.page.model[this.page.main].path +
+        (this.page.model[this.page.main].path !== '' ? '/' : '') +
+        this.rows[this.page.main][index];
+      this.windowService.open(ConfirmDialogComponent,
+        {
+          title: 'Delete ' + this.rows[this.page.main][index],
+          context: {
+            text: 'Are you sure that you want to delete "' + this.rows[this.page.main][index] + '" ?',
+            callback: () => {
+              this.db.ref(path).remove(() => {
+                resolve();
+              });
+            }
+          }
+        })
+    })
+  }
 
   private getCurrentMain(index: number) {
     return this.rows[this.page.main][index];

@@ -1,1 +1,9 @@
-<div>home</div>
+<div class="home">
+  <div class="title-container">
+    <div class="title">DashDB</div>
+    <div class="subtitle">Firebase Realtime Database Manager</div>
+  </div>
+  <div class="stats-container" *ngIf="pageStats !== undefined">
+    You are watching {{pageStats.pageNumber}} elements with {{pageStats.propertyNumber}} properties.
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   NbAccordionModule,
-  NbButtonModule, NbCardModule, NbCheckboxModule,
+  NbButtonModule, NbCardModule, NbCheckboxModule, NbIconModule,
   NbInputModule,
   NbLayoutModule, NbListModule, NbSelectModule,
   NbSidebarModule,
@@ -34,7 +34,8 @@ import { CreateUserComponent } from './create-user.component';
     NbCheckboxModule,
     NbTooltipModule,
     FormsModule,
-    NbListModule
+    NbListModule,
+    NbIconModule
   ],
   exports: [
     NbLayoutModule,

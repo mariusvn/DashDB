@@ -1,1 +1,26 @@
 
+.home {
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  .title-container {
+    text-align: center;
+    transform: scale(2);
+    .title {
+      font-weight: bolder;
+      font-size: 80px;
+      line-height: 80px;
+      margin-left: -5px;
+    }
+    .subtitle {
+      font-weight: lighter;
+      font-size: 20px;
+    }
+  }
+  .stats-container {
+    margin-top: 120px;
+  }
+}

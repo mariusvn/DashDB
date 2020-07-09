@@ -1,6 +1,10 @@
 <div>
   <nb-card *ngIf="isBrowser">
-    <nb-card-body>
+    <nb-card-body class="card" *ngIf="page">
+      <div class="header">
+        <div class="title">{{page.name}}</div>
+        <button nbButton (click)="openCreateDialog()">Add Item</button>
+      </div>
       <table *ngIf="page && rows[0] && rows[0].length > 0">
         <thead>
           <tr>
@@ -8,12 +12,14 @@
               <th>{{row.name}}</th>
             </ng-container>
             <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let _row of rows[page.main]; let idx = index">
             <td *ngFor="let cell of rows; let i = index">{{cell[idx]}}</td>
             <td><button nbButton (click)="openEditDialog(idx)">Edit</button></td>
+            <td><button nbButton (click)="deleteItem(idx)">Delete</button></td>
           </tr>
         </tbody>
       </table>

@@ -37,8 +37,23 @@ export class PageEditorComponent implements OnInit {
     this.pages[pageIndex].main = nbr;
   }
 
+  movePage(event: MouseEvent, pageIndex: number, direction: 'up' | 'down'): void {
+    event.stopPropagation();
+    if (
+      (pageIndex === 0 && direction === 'up') ||
+      (pageIndex === this.pages.length - 1 && direction === 'down')
+    ) {
+      return;
+    }
+    const factor = direction === 'up' ? -1 : 1;
+    this.pages[pageIndex].position += factor;
+    this.pages[pageIndex + factor].position += factor * -1;
+    const tempPage = this.pages[pageIndex + factor];
+    this.pages[pageIndex + factor] = this.pages[pageIndex];
+    this.pages[pageIndex] = tempPage;
+  }
+
   addPage() {
-    console.log(this.pages);
     this.pages.push({
       main: 0,
       model: [{
@@ -58,7 +73,6 @@ export class PageEditorComponent implements OnInit {
   save() {
     this.loading = true;
     const ret = this.pageService.checkPagesModel(this.pages);
-    console.log(ret);
     if (ret.success) {
       this.error = undefined;
     } else {
